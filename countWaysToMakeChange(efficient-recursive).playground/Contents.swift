@@ -6,7 +6,7 @@
 
 //  setting the parameter 'boosted' to true is what makes the algorithm more efficient, by implementing a lookup table (a dictionary, with 2-tuples as keys) to tabulate values returned from pairs of parameters (amount, denominations) that the function was already called with (thus avoiding redundant tree recursion recalculations.)
 
-//  (It's kind of neat, if you haven't seen Xcode playgrounds in action, to see the processes running during slower computations (to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at-right) leftward to display frequencies of calls.)
+//  (It's kind of neat, if you haven't seen Xcode playgrounds in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at-right) leftward to display frequencies of calls.)
 
 
 //  To use: call on line 83
@@ -80,7 +80,7 @@ func amountOfLargest(_ denominations: Int) -> Int {
     }
 }
 
-countWaysToMakeChange(391, denominations: 5, boosted: true) // note: if boosed: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
+countWaysToMakeChange(391, denominations: 5, boosted: true) // note: if boosted: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
 //  ...To break from a slow computation without quitting, simply set boosted: true & run again
 
 
