@@ -2,11 +2,11 @@
 //  1st commit Apr. 24, 2019  ∙  Created by Garth Snyder (a.k.a. gladiusKatana ⚔️)
 
 
-//$ counts the number of ways to make up a given sum with change, using a given number of types of coins (assuming all types are available, up to a given denomination — picture a bank-sized cash register🏦)
+//$ counts the number of ways to make up a given sum with change, using a given number of types of coins (assuming all types are available, up to a given denomination — picture a giant cash register)
 
 //  the algorithm is made more efficient by setting the parameter 'boosted' to true, which implements a lookup table (a dictionary, with 2-tuples as keys) to tabulate values returned from pairs of parameters (amount, denominations) that the function was already called with; thus are the redundant tree recursion recalculations avoided.
 
-//  (It's kind of neat, if you haven't seen Xcode playgrounds in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at-right) leftward to display frequencies of calls.)
+//  (It's kind of neat, if you haven't seen Xcode playgrounds in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at right) leftward to display frequencies of calls.)
 
 
 //  To use the function: line 83
@@ -81,7 +81,7 @@ func amountOfLargest(_ denominations: Int) -> Int {
 }
 
 countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
-//  ...To break from a slow computation without quitting, simply set boosted: true & run again
+//  ...To break from a slow computation without quitting, simply set boosted: true & run again any time
 
 
 
@@ -93,7 +93,7 @@ countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted:
 /*  Inspired by an example from Structure and Interpretation of Computer Programs (section 1.2.2, "Counting change": https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2.2
  
  
-    Here is the same procedure in Scheme (no lookup table though, presently):
+    ...Here is the same procedure from the text (rewritten slightly), in Scheme. (No lookup table, yet):
 
  
  
@@ -116,6 +116,6 @@ countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted:
  
 
  
- ; And here is the Scheme implementation I use (nice open-source REPL): https://download.racket-lang.org/
+ ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (nice open-source REPL)
 
- ; Interesting to note, this program runs just as fast (if not faster) in Scheme via Racket, than in Xcode playgrounds (even with boosted: true ! -- up to an amount = ~700.  With boosted: false, (ie both languages implementing a tree recursive process), for any amount over ~75, it's no contest.)*/
+ ; Interesting to note, this program runs just as fast (if not faster) in Scheme via Racket, than in an Xcode Playground (even after setting boosted: true ! -- up to an amount = ~700.  With boosted: false, (so that both languages implement a tree recursive process), for any amount over ~75, it's no contest.)*/
