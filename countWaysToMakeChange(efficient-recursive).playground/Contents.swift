@@ -9,7 +9,8 @@
 //  (It's kind of neat, if you haven't seen Xcode playgrounds in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at right) leftward to display frequencies of calls.)
 
 
-//  To use the function: line 83
+//  To use the function: line 83.
+//  All monetary values are in CENTS.
 
 
 import UIKit
@@ -64,7 +65,7 @@ func countWaysToMakeChange(_ amount: Int, denominations: Int, boosted efficiency
                                         boosted: efficiencyBoost)
         }
     }
-    addToTableOfValues(amount: amount, denominations: denominations, ways: ways)
+    if efficiencyBoost{addToTableOfValues(amount: amount, denominations: denominations, ways: ways)}
     return ways
 }
 
@@ -75,12 +76,13 @@ func amountOfLargest(_ denominations: Int) -> Int {
     case 2: return 5
     case 3: return 10
     case 4: return 25
-    case 5: return 100
+    case 5: return 100  // return values are in CENTS
     default: return 0
     }
 }
 
-countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
+countWaysToMakeChange(606, denominations: 5, boosted: true)// amounts are in CENTS
+// ❗️ If boosted: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
 //  ...To break from a slow computation without quitting, simply set boosted: true & run again any time
 
 
@@ -92,13 +94,12 @@ countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted:
 
 /*  Inspired by an example from Structure and Interpretation of Computer Programs (section 1.2.2, "Counting change": https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2.2
  
- 
-    ...Here is the same procedure from the text (rewritten slightly), in Scheme. (No lookup table, yet):
+    ...Here is the same procedure from the text (rewritten slightly), in Scheme. (No tabulation 'boost'-- yet)
 
  
  
- (define (countWaysToMakeChange amount) ; using somewhat Swifty naming, ie camelCase etc.
-    (define (cwc amount denominations)
+ (define (countWaysToMakeChange amount)                 ; using somewhat Swifty naming
+    (define (recursiveCount amount denominations)
       (define (amountsOfLargestUsed denominations)
         (cond ((= denominations 1) 1)
               ((= denominations 2) 5)
@@ -107,15 +108,15 @@ countWaysToMakeChange(700, denominations: 5, boosted: true) // note: if boosted:
               ((= denominations 5) 100)))
       (cond ((or (< amount 0) (= denominations 0)) 0)
             ((= amount 0) 1)
-            (else (+ (cwc amount
+            (else (+ (recursiveCount amount
                           (- denominations 1))
-                     (cwc (- amount
+                     (recursiveCount (- amount
                              (amountsOfLargestUsed denominations))
                           denominations)))))
-    (cwc amount 5))
+    (recursiveCount amount 5))
  
 
  
  ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (nice open-source REPL)
 
- ; Interesting to note, this program runs just as fast (if not faster) in Scheme via Racket, than in an Xcode Playground (even after setting boosted: true ! -- up to an amount = ~700.  With boosted: false, (so that both languages implement a tree recursive process), for any amount over ~75, it's no contest.)*/
+ ; This program runs just as fast (or faster) in Scheme via Racket, with the above code, than in an Xcode Playground... even after setting boosted: true -- if the value of the amount is up to ~700 (by my experimentation).  With boosted: false — comparing apples to apples, with two tree recursive processes — the Scheme one is significantly faster, for amount > ~100.  Of course for large enough amounts, it takes a large amount of time and resources in any language. I am curious, though, to implement tabulation in the Scheme version and see what it can handle.)*/
