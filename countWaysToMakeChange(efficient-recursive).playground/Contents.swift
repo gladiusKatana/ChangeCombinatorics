@@ -6,7 +6,7 @@
 
 //  the algorithm is made more efficient by setting the parameter 'boosted' to true, which implements a lookup table (a dictionary, with 2-tuples as keys) to tabulate values returned from pairs of parameters (amount, denominations) that the function was already called with; thus are the redundant tree recursion function calls avoided.
 
-//  (About Xcode playgrounds: it's kind of neat, if you haven't seen them in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the right sidebar leftward if it isn't already displaying frequencies of calls.)
+//  (About Xcode playgrounds:  it's kind of neat, if you haven't seen them in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the right sidebar leftward if it isn't already displaying frequencies of calls.)
 
 
 //  To use the function: line 86.
@@ -83,7 +83,7 @@ func amountOfLargest(_ denominations: Int) -> Int {
     }
 }
 
-countWaysToMakeChange(512, denominations: 5, boosted: true)// amounts are in CENTS
+countWaysToMakeChange(512, denominations: 5, boosted: true) // amounts are in CENTS
 // ❗️ If boosted: false, can take a long time to run, and use a lot of CPU (see comments at top)...
 //  ...To break from a slow computation without quitting, simply set boosted: true & run again immediately
 
@@ -118,9 +118,9 @@ countWaysToMakeChange(512, denominations: 5, boosted: true)// amounts are in CEN
     (recursiveCount amount 5))
  
  
- ; ...To call the above procedure (for, e.g., amount $654): (countWaysToMakeChange 512)
+ ; ...To call the above procedure (for, e.g., amount $512): (countWaysToMakeChange 512)
  
  ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (it has a nice open-source REPL, that makes reading super-easy, with parenthesis-matching & auto-highlighting of definitions, control flow expressions, etc. similar to Xcode's).
  ; To use Racket make sure you specify the language first. (Type '#lang scheme' at-top then hit Run to enter it)
 
- ; The Scheme version of is program (implemented in Racket) runs just as fast (or faster) than this Swift version in an Xcode Playground... even after setting boosted: true... if the value of the amount is up to ~$700 (by my experimentation).  With boosted: false (comparing apples to apples with two tree recursive processes), the Scheme one is significantly faster, for an amount > ~100.  Of course for small enough amounts they're both fast and for large enough ones, they're both slow and use a lot of resources regardless. I am curious, though, to implement tabulation in the Scheme version and see what it can handle.)*/
+ ; This is interesting.  The Scheme version of this program (implemented in Racket) runs just as fast (or faster) than this Swift version in an Xcode Playground... even after setting boosted: true... if the value of the amount is up to ~$700 (by my experimentation).  With boosted: false (comparing apples to apples with two tree recursive processes), the Scheme one is significantly faster, for an amount > ~100.  Of course for small enough amounts they're both fast and for large enough ones they're both slow and use a lot of resources. I am curious, though, to implement tabulation in the Scheme version then see what it can handle.)*/
