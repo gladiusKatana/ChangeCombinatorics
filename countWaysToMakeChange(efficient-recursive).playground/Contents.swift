@@ -2,14 +2,14 @@
 //  1st commit Apr. 24, 2019  ∙  Created by Garth Snyder (a.k.a. gladiusKatana ⚔️)
 
 
-//$ counts the number of ways to make up a given sum with change, using a given number of types of coins (assuming all types are available, up to a given denomination — picture a giant cash register)
+//$ counts the number of ways to make up a given sum with change, using a given number of types of coins (assuming all types are available, up to a given denomination. Picture a giant cash register.) I prefer to assume the largest coin will be 100 cents (could have said 200 though: Canadians have 'toonies'.)
 
-//  the algorithm is made more efficient by setting the parameter 'boosted' to true, which implements a lookup table (a dictionary, with 2-tuples as keys) to tabulate values returned from pairs of parameters (amount, denominations) that the function was already called with; thus are the redundant tree recursion recalculations avoided.
+//  the algorithm is made more efficient by setting the parameter 'boosted' to true, which implements a lookup table (a dictionary, with 2-tuples as keys) to tabulate values returned from pairs of parameters (amount, denominations) that the function was already called with; thus are the redundant tree recursion function calls avoided.
 
-//  (It's kind of neat, if you haven't seen Xcode playgrounds in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the dark-grey sidebar (at right) leftward to display frequencies of calls.)
+//  (About Xcode playgrounds: it's kind of neat, if you haven't seen them in action before, to see running processes being tracked (especially during slower computations -- to do one, call  countWaysToMakeChange(:), with  boosted: false, and a fairly large value of  amount. Pull the sidebar (at-right) leftward to display frequencies of calls.)
 
 
-//  To use the function: line 83.
+//  To use the function: line 86.
 //  All monetary values are in CENTS.
 
 
@@ -23,6 +23,8 @@ struct Pair<T: Hashable, U: Hashable>: Hashable {
     }
 }
 
+//------------------------- // code between these bars is for the lookup table 'boosting';
+//---------------           // counting algorithm is below
 func ==<T:Hashable,U:Hashable>(lhs: Pair<T,U>, rhs: Pair<T,U>) -> Bool { // comparison function
     return lhs.values == rhs.values                                      // for conforming to Equatable protocol
 }
@@ -81,9 +83,9 @@ func amountOfLargest(_ denominations: Int) -> Int {
     }
 }
 
-countWaysToMakeChange(606, denominations: 5, boosted: true)// amounts are in CENTS
+countWaysToMakeChange(123, denominations: 5, boosted: true)// amounts are in CENTS
 // ❗️ If boosted: false, can take a long time to run, and consume a large amount of CPU (see comments at top)...
-//  ...To break from a slow computation without quitting, simply set boosted: true & run again any time
+//  ...To break from a slow computation without quitting, simply set boosted: true & run again immediately
 
 
 
@@ -92,9 +94,9 @@ countWaysToMakeChange(606, denominations: 5, boosted: true)// amounts are in CEN
 
 //  Lines 17-29 adapted from Stack Overflow user Marek Gregor (see answer: Nov 6 '14 by same): https://stackoverflow.com/questions/24131323/in-swift-can-i-use-a-tuple-as-the-key-in-a-dictionary
 
-/*  Inspired by an example from Structure and Interpretation of Computer Programs (section 1.2.2, "Counting change": https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2.2
+/*  Inspired by an example from Structure and Interpretation of Computer Programs (section 1.2.2, "Counting change": https://mitpress.mit.edu/sites/default/files/sicp/index.html
  
-    ...Here is the same procedure from the text (rewritten slightly), in Scheme. (No tabulation 'boost'-- yet)
+    ...Here is the same procedure from the text (rewritten slightly), in Scheme. (No 'tabulation boost' yet)
 
  
  
@@ -115,8 +117,9 @@ countWaysToMakeChange(606, denominations: 5, boosted: true)// amounts are in CEN
                           denominations)))))
     (recursiveCount amount 5))
  
-
  
- ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (nice open-source REPL)
+ ; ...To call the above procedure (for, e.g. and amount of $654): (countWaysToMakeChange 654)
+ 
+ ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (it has a nice open-source REPL, that makes reading super-easy, with parenthesis-matching & auto-highlighting of definitions, control flow expressions, etc. similar to Xcode's)
 
- ; This program runs just as fast (or faster) in Scheme via Racket, with the above code, than in an Xcode Playground... even after setting boosted: true -- if the value of the amount is up to ~700 (by my experimentation).  With boosted: false — comparing apples to apples, with two tree recursive processes — the Scheme one is significantly faster, for amount > ~100.  Of course for large enough amounts, it takes a large amount of time and resources in any language. I am curious, though, to implement tabulation in the Scheme version and see what it can handle.)*/
+ ; This program runs just as fast (or faster) in Scheme via Racket with the above code, than in an Xcode Playground... even after setting boosted: true -- if the value of the amount is up to ~$700 (by my experimentation).  With boosted: false (comparing apples to apples, with two tree recursive processes) the Scheme one is significantly faster, for an amount > ~100.  Of course for large enough amounts, it takes a large amount of time and resources in either language. I am curious, though, to implement tabulation in the Scheme version and see what it can handle.)*/
