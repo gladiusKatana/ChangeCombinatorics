@@ -92,7 +92,7 @@ countWaysToMakeChange(512, denominations: 5, boosted: true) // amounts are in CE
                                         //Notes
 
 
-//  Lines 17-29 adapted from Stack Overflow user Marek Gregor (see answer: Nov 6 '14 by same): https://stackoverflow.com/questions/24131323/in-swift-can-i-use-a-tuple-as-the-key-in-a-dictionary
+//  Lines 18-32 adapted from Stack Overflow user Marek Gregor (see answer: Nov 6 '14 by same): https://stackoverflow.com/questions/24131323/in-swift-can-i-use-a-tuple-as-the-key-in-a-dictionary
 
 /*  Inspired by an example from Structure and Interpretation of Computer Programs (section 1.2.2, "Counting change": https://mitpress.mit.edu/sites/default/files/sicp/index.html
  
@@ -123,4 +123,4 @@ countWaysToMakeChange(512, denominations: 5, boosted: true) // amounts are in CE
  ; Here is the Scheme implementation I use: https://download.racket-lang.org/ (it has a nice open-source REPL, that makes reading super-easy, with parenthesis-matching & auto-highlighting of definitions, control flow expressions, etc. similar to Xcode's).
  ; To use Racket make sure you specify the language first. (Type '#lang scheme' at-top then hit Run to enter it)
 
- ; This is interesting.  The Scheme version of this program (implemented in Racket) runs just as fast (or faster) than this Swift version in an Xcode Playground... even after setting boosted: true... if the value of the amount is up to ~$700 (by my experimentation).  With boosted: false (comparing apples to apples with two tree recursive processes), the Scheme one is significantly faster, for an amount > ~100.  Of course for small enough amounts they're both fast and for large enough ones they're both slow and use a lot of resources. I am curious, though, to implement tabulation in the Scheme version then see what it can handle.)*/
+ ; 💡This is interesting.  The Scheme version of this program (implemented in Racket) runs just as fast (or faster) than this Swift version in an Xcode Playground... even after setting boosted: true... if the value of the amount is up to ~$700 (by my experimentation).  With boosted: false (comparing apples to apples with two tree recursive processes), the Scheme one is significantly faster, for an amount > ~100.  Of course for small enough amounts they're both fast and for large enough ones they're both slow and use a lot of resources. I am curious, though, to implement tabulation in the Scheme version then see what it can handle.)*/
